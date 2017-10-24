@@ -1,19 +1,11 @@
 var game;
 var shark;
-<<<<<<< HEAD
 var foodMax = 6;
 var trashMax = 4;
 
 var sharkDirection = false;
 
 
-=======
-var foodMax = 7;
-var trashMax = 5;
-
-var sharkDirection = false;
-
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 var food = new Array(foodMax);
 var fishDirection = new Array(foodMax);
 
@@ -33,11 +25,7 @@ function init() {
           
     }
     for (var i = 0; i < trashMax; i++){
-<<<<<<< HEAD
         trash[i] = new Trash(i);
-=======
-        trash[i] = new Trash();
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
     }
     game.start();
 }
@@ -51,19 +39,13 @@ function Shark() {
             this.changeXby(7)
             tShark.changeImage("sharkRight.png");
             sharkDirection = true;
-<<<<<<< HEAD
             
-=======
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
         }
         if (keysDown[K_LEFT]) {
             this.changeXby(-7)
             tShark.changeImage("sharkLeft.png");
             sharkDirection = false;
-<<<<<<< HEAD
             
-=======
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
         }
         if (keysDown[K_UP]) {
             this.changeYby(-7);
@@ -82,7 +64,6 @@ function Shark() {
             this.changeXby(10);
             score -= 2;
             }
-<<<<<<< HEAD
 
         if (keysDown[K_SPACE] && keysDown[K_UP]) {
             this.changeYby(-10);
@@ -99,8 +80,6 @@ function Shark() {
 
 
 
-=======
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
             
         }
     
@@ -113,20 +92,14 @@ function Food(i) {
     var temp = startPlace();
    
     tFood.setPosition(temp.x, temp.y);
-<<<<<<< HEAD
     tFood.setMoveAngle(startMoveAngle(i));
 
     tFood.setSpeed(startSpeed(5));
        
-=======
-    tFood.setMoveAngle(startMoveAngle());
-    tFood.setSpeed(startSpeed(10));
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
     return tFood;
 }
 
-<<<<<<< HEAD
 function fishSprite(i) {
 var direction = Math.ceil(Math.random() * 2)
 if (direction < 2) {
@@ -147,16 +120,6 @@ function Trash(i){
     tTrash.setPosition(temp.x, temp.y);
     tTrash.setMoveAngle(startMoveAngle(i));
     tTrash.setSpeed(startSpeed(3));
-=======
-
-
-function Trash(){
-    tTrash = new Sprite(game, "trashBottle.png", 150, 50);
-    var temp = startPlace();
-    tTrash.setPosition(temp.x, temp.y);
-    tTrash.setMoveAngle(startMoveAngle());
-    tTrash.setSpeed(startSpeed(5));
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
     return tTrash;
 }
@@ -164,17 +127,12 @@ function Trash(){
 function startPlace() {
     var x = Math.round(Math.random() * game.width);
     var y = Math.round(Math.random() * game.height);
-<<<<<<< HEAD
     
-=======
-    console.log(x, y);
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
     return { "x": x, "y": y };
 
 }
 
-<<<<<<< HEAD
 function startMoveAngle(i) {
 
     if (fishDirection[i] == true) { 
@@ -190,19 +148,11 @@ function startMoveAngle(i) {
 
     }
   console.log(angle)
-=======
-function startMoveAngle() {
-    var angle = Math.round(Math.random() * 180);
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
     return angle;
 }
 
 function startSpeed(max) {
-<<<<<<< HEAD
     var startSpeed = Math.round(Math.random() * max + 5);
-=======
-    var startSpeed = Math.round(Math.random() * max);
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
     return startSpeed;
 }
 
@@ -235,18 +185,13 @@ function checkCollisionTrash(trash) {
         score -= 10;
         temp = startPlace();
         trash.setPosition(temp.x, temp.y);
-<<<<<<< HEAD
         trash.setMoveAngle(startMoveAngle(trash));
         trash.setSpeed(3);
-=======
-        trash.setMoveAngle(startMoveAngle());
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
     }
 
 }
 
-<<<<<<< HEAD
 
 
 
@@ -324,68 +269,6 @@ function runAway(fish) {
 
 }
 
-=======
-function checkCollisionShark() {
-    for (var i = 0; i < food.length; i++) {
-        var distance = food[i].distanceTo(tShark);
-        if (distance < 200) {
-            runAway(i);
-        }
-       
-    }
-
-}
-
-
-
-function scaredFish() {
-    //check square in front of shark using x and y relative to the shark (positive x for right facing shark, negative x for left facing shark)
-    //any fish in the square will run away--change direction if facing the shark, limited burst of speed
-
-    if (sharkDirection == true){
-        for (i = 0; i < food.length; i++)
-            if (fish[i].x >= tShark.x && fish[i].x < tShark.x + 20 && fish[i].y >= tShark.x - 20 && fish[i].y < tShark.x + 20){
-            runAway(i);
-        }
-   
-
-    //if shark is facing left
-    // for loop through fish array
-    //  (if fish[i].x <= tShark.x && fish[i].x > tShark.x - 20 && fish[i].y => tShark.x - 20 && fish[i].y < tShark.x + 20)
-    //    runAway(i)
-}
-
-}
-
-function runAway(i) {
-
-    
-    
-
-    //if (food[i].img.src == "fishLeft.png" && sharkDirection == true) {
-     //   food[i].tFood.setMoveAngle(food[i].tFood.moveAngle - 180);
-      //  speed burst
-     // change sprite  
-        
-    //}  
-    //else if (food[i].img.src == "fishLeft.png" && sharkDirection == false) {
-      //  burst of speed;
-      //  
-    //}
-
-
-    //else if {food[i].img.src == "fishRight.png" && sharkDirection == false {
-        //   food[i].tFood.setMoveAngle(food[i].tFood.moveAngle - 180);
-    // speed burst
-    //change sprite
-
-    //else if (food[i].img.src == "fishRight.png" && sharkDirection == true) {
-      //  burst of speed;
-
-
-}
-
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
 
 
@@ -393,12 +276,8 @@ function runAway(i) {
 function update() {
     game.clear();
     shark.checkKeys();
-<<<<<<< HEAD
     
     
-=======
-    checkCollisionShark();
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
     for (var i = 0; i < food.length; i++) {
         food[i].update();
@@ -414,10 +293,7 @@ function update() {
         checkCollisionTrash(trash[i]);
     }
 
-<<<<<<< HEAD
   
-=======
->>>>>>> a6169d276836d69f244d60d3034925ca82f3b458
 
     score = score - .1;
     energyBar();

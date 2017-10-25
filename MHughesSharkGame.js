@@ -39,17 +39,18 @@ function Shark() {
             this.changeXby(7)
             tShark.changeImage("sharkRight.png");
             sharkDirection = true;
-            
-        }
+            }
+
         if (keysDown[K_LEFT]) {
             this.changeXby(-7)
             tShark.changeImage("sharkLeft.png");
             sharkDirection = false;
-            
-        }
+            }
+
         if (keysDown[K_UP]) {
             this.changeYby(-7);
         }
+
         if (keysDown[K_DOWN]) {
             this.changeYby(7);
         }
@@ -60,7 +61,6 @@ function Shark() {
         }
 
         if (keysDown[K_SPACE] && keysDown[K_RIGHT]) {
-
             this.changeXby(10);
             score -= 2;
             }
@@ -71,18 +71,10 @@ function Shark() {
         }
 
         if (keysDown[K_SPACE] && keysDown[K_DOWN]) {
-
             this.changeYby(10);
             score -= 2;
             }
-
-
-
-
-
-            
         }
-    
     return tShark;
 }
 
@@ -95,24 +87,23 @@ function Food(i) {
     tFood.setMoveAngle(startMoveAngle(i));
 
     tFood.setSpeed(startSpeed(5));
-       
-
+      
     return tFood;
 }
 
 function fishSprite(i) {
 var direction = Math.ceil(Math.random() * 2)
+
 if (direction < 2) {
         fishDirection[i] = 1;
         return "fishRight.png";
 }
+
 else {
         fishDirection[i] = false;
         return "fishLeft.png";
     }
 }
-
-
 
 function Trash(i){
     tTrash = new Sprite(game, "trashBottle.png", 120, 40);
@@ -120,17 +111,13 @@ function Trash(i){
     tTrash.setPosition(temp.x, temp.y);
     tTrash.setMoveAngle(startMoveAngle(i));
     tTrash.setSpeed(startSpeed(3));
-
     return tTrash;
 }
 
 function startPlace() {
     var x = Math.round(Math.random() * game.width);
     var y = Math.round(Math.random() * game.height);
-    
-
     return { "x": x, "y": y };
-
 }
 
 function startMoveAngle(i) {
@@ -145,9 +132,8 @@ function startMoveAngle(i) {
 
     else {
         var angle = Math.round(Math.random() * 360);
-
     }
-  console.log(angle)
+
     return angle;
 }
 
@@ -155,8 +141,6 @@ function startSpeed(max) {
     var startSpeed = Math.round(Math.random() * max + 5);
     return startSpeed;
 }
-
-
 
 function energyBar() {
     game.context.beginPath();
@@ -173,9 +157,7 @@ function checkCollisionFood(fish) {
         temp = startPlace();
                
         food[food.indexOf(fish)] = new Food(food.indexOf(fish));
-
     }
-
 }
 
 function checkCollisionTrash(trash) {
@@ -187,20 +169,13 @@ function checkCollisionTrash(trash) {
         trash.setPosition(temp.x, temp.y);
         trash.setMoveAngle(startMoveAngle(trash));
         trash.setSpeed(3);
-
     }
-
 }
-
-
-
 
 
 function scaredFish(fish) {
     //check square in front of shark using x and y relative to the shark (positive x for right facing shark, negative x for left facing shark)
     //any fish in the square will run away--change direction if facing the shark, limited burst of speed
-    
-   
 
     if (sharkDirection == true){
         
@@ -211,17 +186,12 @@ function scaredFish(fish) {
    }
     if (sharkDirection == false) {
        
-        {
-               
-            if (fish.x <= shark.x && fish.x > (shark.x - 120) && fish.y >= (shark.y - 120) && (fish.y < shark.y + 120)) {
+        if (fish.x <= shark.x && fish.x > (shark.x - 120) && fish.y >= (shark.y - 120) && (fish.y < shark.y + 120)) {
                
                 runAway(fish);
             }
         }
-      }
-  
-
-
+      
 }
 
 function runAway(fish) {
@@ -270,9 +240,6 @@ function runAway(fish) {
 }
 
 
-
-
-
 function update() {
     game.clear();
     shark.checkKeys();
@@ -294,9 +261,25 @@ function update() {
     }
 
   
+    if (score > 0){
+         score = score - .1;
+         energyBar();
+         shark.update();}
 
-    score = score - .1;
-    energyBar();
-    shark.update();
+    if (score <= 0){
+         gameOver();
+    }
 
+
+
+}
+
+function gameOver(){
+	game.stop();
+	alert("Oh no, your shark ran out of energy! Press 'restart' to play again.");
+    
+}
+
+function restart() {
+	document.location.href = "";
 }
